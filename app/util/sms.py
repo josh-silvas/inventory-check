@@ -38,7 +38,9 @@ class Twilio:
         # If there is an entry in has_notified, but the timestamp is smaller than
         # the current timestamp:
         if self.has_notified[message] > current_time:
-            info(f"Next notify time of {self.has_notified[message]} is still less than current time {current_time}")
+            info(
+                f"Next notify time of {self.has_notified[message]} is still less than current time {current_time}"
+            )
             return False
 
         # Finally, there is an entry, but it is now invalid because the current time exceeds the

@@ -1,8 +1,17 @@
 #!/usr/bin/python3
 import time
+import sys
 
-from util.sms import Twilio
-from config import POLL_INTERVAL
+try:
+    from config import POLL_INTERVAL
+except ModuleNotFoundError as e:
+    print(
+        f"{e}: Are you sure you copied your own config.py file?\nTry `cp config-example.py config.py`"
+    )
+    sys.exit()
+
+from util import Twilio
+from util import fail
 from store import Amazon, BestBuy, NewEgg, Target, WalMart
 from products import INFO
 
