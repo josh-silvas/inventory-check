@@ -38,7 +38,9 @@ class BestBuy:
         )
         ret_val = []
         if r.status_code > 209:
-            content = r.content.replace(b"\n", b"").replace(b"\r", b"").replace(b"  ", b"")
+            content = (
+                r.content.replace(b"\n", b"").replace(b"\r", b"").replace(b"  ", b"")
+            )
             fail(f"ConnectionError: Received {r.status_code}: {content}")
             return ret_val
         resp = r.json()
@@ -60,7 +62,9 @@ class BestBuy:
         )
         ret_val = []
         if r.status_code > 209:
-            content = r.content.replace(b"\n", b"").replace(b"\r", b"").replace(b"  ", b"")
+            content = (
+                r.content.replace(b"\n", b"").replace(b"\r", b"").replace(b"  ", b"")
+            )
             fail(f"ConnectionError: Received {r.status_code}: {content}")
             return ret_val
         resp = r.json()
