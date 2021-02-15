@@ -7,12 +7,15 @@ help:
 
 
 .PHONY: exec
-exec: clean build ## Build, tag, and execute the container. This will launch the docker container as a daemon
-	docker run --restart=unless-stopped --name inventory-check --log-opt max-size=20m --log-opt max-file=5 -i -d inventory-check:$(VERSION)
+exec: build run ## Build, tag, and execute the container. This will launch the docker container as a daemon
 
 .PHONY: build
 build: ## Build and tag the container. This does not start the application.
 	docker build -t inventory-check:$(VERSION) -f Dockerfile .
+
+.PHONY: run
+run: clean ## This will launch the docker container as a daemon
+	docker run --restart=unless-stopped --name inventory-check --log-opt max-size=20m --log-opt max-file=5 -i -d inventory-check:$(VERSION)
 
 .SILENT: lint
 .PHONY: lint
