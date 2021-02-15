@@ -1,0 +1,8 @@
+.idea/
+local.log
+
+app/config.py
+__pycache__/
+app/__pycache__/
+app/util/__pycache__/
+app/store/__pycache__/
