@@ -1,13 +1,14 @@
 # -*- coding: utf-8 -*-
 import requests
 
-from config import TARGET_ZIP_CODES
 from util.log import success, info, fail
 from typing import Dict
 
 
 class Target:
-    def __init__(self, product_info: Dict):
+
+    def __init__(self, product_info: Dict, cfg):
+        self.cfg = cfg
         self.store_name = self.__class__.__name__
         self.product_id = product_info.get(self.store_name).get("_id")
         self.product_link = product_info.get(self.store_name).get("link")
@@ -23,7 +24,7 @@ class Target:
 
     def check_availability(self) -> bool:
         is_available = False
-        for zip_code in TARGET_ZIP_CODES:
+        for zip_code in self.cfg.target_zip_codes:
             try:
                 amount, location = self.check_specific(zip_code)
                 if amount > 0:

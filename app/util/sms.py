@@ -2,17 +2,17 @@ import time
 
 from twilio.rest import Client
 from util import info
-from config import SMS
 
 
 class Twilio:
-    def __init__(self):
+    def __init__(self, cfg):
+        self.cfg = cfg
         self.has_notified = {}
         self.hold_down = 86400
-        if not SMS["auth_token"] or not SMS["account_sid"]:
+        if not self.cfg.sms_auth_token or not self.cfg.sms_account_sid:
             self.client = None
         else:
-            self.client = Client(SMS["account_sid"], SMS["auth_token"])
+            self.client = Client(self.cfg.sms_account_sid, self.cfg.sms_auth_token)
 
     def send(self, message: str):
         if not self.client:
@@ -20,7 +20,7 @@ class Twilio:
 
         if self._should_notify(message):
             self.client.messages.create(
-                to=f"+{SMS['to_number']}", from_=f"+{SMS['from_number']}", body=message
+                to=f"+{self.cfg.sms_to_number}", from_=f"+{self.cfg.sms_from_number}", body=message
             )
 
     def _should_notify(self, message: str):

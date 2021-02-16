@@ -1,4 +1,5 @@
 VERSION = $(shell python3 -c "import sys; sys.path.insert(0, \"$(pwd)\"); import app; print(app.__version__)")
+DEFAULT_PATH = $(if $(path), $(path), $(dir $(abspath $(lastword $(MAKEFILE_LIST))))app)
 
 .SILENT: help
 help:
@@ -15,7 +16,7 @@ build: ## Build and tag the container. This does not start the application.
 
 .PHONY: run
 run: clean ## This will launch the docker container as a daemon
-	docker run --restart=unless-stopped --name inventory-check --log-opt max-size=20m --log-opt max-file=5 -i -d inventory-check:$(VERSION)
+	docker run --restart=unless-stopped --name inventory-check --log-opt max-size=20m --log-opt max-file=5 -v $(DEFAULT_PATH)/config.ini:/home/app/config.ini -i -d inventory-check:$(VERSION)
 
 .SILENT: lint
 .PHONY: lint

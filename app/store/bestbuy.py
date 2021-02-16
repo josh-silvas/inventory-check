@@ -1,18 +1,23 @@
 import requests
-from typing import List
+from typing import List, Dict
 from time import sleep
 from util.log import success, info, fail
-from config import BEST_BUY_API_KEY
 
 
 class BestBuy:
-    def __init__(self, product_info):
+
+    def __init__(self, product_info: Dict, cfg):
+        self.cfg = cfg
         self.store_name = self.__class__.__name__
         self.product_id = product_info.get(self.store_name).get("_id")
         self.product_link = product_info.get(self.store_name).get("link")
         self.product_name = product_info.get("Name")
 
     def check_availability(self) -> bool:
+        if not self.cfg.best_buy_api_key:
+            info(f"[{self.store_name}] api key missing. Skipping...")
+            return False
+
         sleep(1)
         is_available = False
         if self._print(self._available_within_zip(int(self.product_id))):
@@ -34,7 +39,7 @@ class BestBuy:
     def _available_within_zip(self, sku: int, zip_code: int = 78261) -> List[str]:
         r = requests.get(
             url=f"{self.product_link}/products/{sku}/stores.json",
-            params={"apiKey": BEST_BUY_API_KEY, "postalCode": zip_code},
+            params={"apiKey": self.cfg.best_buy_api_key, "postalCode": zip_code},
         )
         ret_val = []
         if r.status_code > 209:
@@ -54,7 +59,7 @@ class BestBuy:
         r = requests.get(
             url=f"{self.product_link}/products(sku={sku})",
             params={
-                "apiKey": BEST_BUY_API_KEY,
+                "apiKey": self.cfg.best_buy_api_key,
                 "show": ",".join(["onlineAvailability", "sku", "name", "addToCartUrl"]),
                 "format": "json",
                 "sort": "onlineAvailability.asc",

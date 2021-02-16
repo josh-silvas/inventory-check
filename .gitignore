@@ -1,7 +1,7 @@
 .idea/
 local.log
 
-app/config.py
+app/config.ini
 __pycache__/
 app/__pycache__/
 app/util/__pycache__/

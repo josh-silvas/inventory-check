@@ -4,7 +4,9 @@ import requests
 
 
 class GameStop:
-    def __init__(self, product_info):
+
+    def __init__(self, product_info, cfg):
+        self.cfg = cfg
         self.store_name = self.__class__.__name__
         self.product_id = product_info.get(self.store_name).get("_id")
         self.product_link = product_info.get(self.store_name).get("link")

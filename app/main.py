@@ -1,17 +1,8 @@
 #!/usr/bin/python3
 import time
-import sys
 
-try:
-    from config import POLL_INTERVAL
-except ModuleNotFoundError as e:
-    print(
-        f"{e}: Are you sure you copied your own config.py file?\nTry `cp config-example.py config.py`"
-    )
-    sys.exit()
-
+from config import Config
 from util import Twilio
-from util import fail
 from store import Amazon, BestBuy, NewEgg, Target, WalMart
 from products import INFO
 
@@ -22,11 +13,13 @@ ACTIVE_STORES = [BestBuy, Amazon, Target, WalMart, NewEgg]
 
 
 def main():
-    # Initialize a Twilio client. If you choose to not use one, then do not populate
-    # twilio information (SMS) in the config.py file.
-    message = Twilio()
-
     while True:
+        config = Config()
+
+        # Initialize a Twilio client. If you choose to not use one, then do not populate
+        # twilio information (SMS) in the config.py file.
+        message = Twilio(config)
+
         # Range through the list of active products listed in the products dictionary.
         for product_info in INFO:
 
@@ -45,13 +38,13 @@ def main():
                 # Finally we run the check_availability method on the Store class implementation. This
                 # method should handle any print statements to screen and only return a boolean indicating
                 # if the store has the product available.
-                if store(product_info).check_availability():
+                if store(product_info, config).check_availability():
                     message.send(
                         f"{store.__name__} has {product_info['Name']} in stock!!!"
                     )
 
         # Sit and wait for the poll interval duration before processing this loop again.
-        time.sleep(POLL_INTERVAL)
+        time.sleep(config.poll_interval)
 
 
 if __name__ == "__main__":
