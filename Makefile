@@ -27,3 +27,8 @@ lint: ## Run code linting against the source code.
 .PHONY: clean
 clean: ## Clean unneeded docker images and files
 	docker rm -f inventory-check || true
+
+.SILENT: tests
+.PHONY: tests
+tests: ## Execute all test files
+	python3 -m pytest -v tests

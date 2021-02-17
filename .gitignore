@@ -1,5 +1,6 @@
 .idea/
 local.log
+.pytest_cache
 
 app/config.ini
 __pycache__/
