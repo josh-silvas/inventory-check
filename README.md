@@ -1,4 +1,4 @@
-# Inventory Checker
+# Inventory Checker [![Build Status](https://travis-ci.com/josh5276/inventory-check.svg?token=Gf7qU7Wm5qzAUdzc2vtt&branch=master)](https://travis-ci.com/josh5276/inventory-check)
 This application is used to check the availability of PS5's at various implemented locations.
 
 This should be run as a docker container.
