@@ -1,12 +1,10 @@
-# -*- coding: utf-8 -*-
 import requests
 
-from util.log import success, info, fail
+from app.util.log import success, info, fail
 from typing import Dict
 
 
 class Target:
-
     def __init__(self, product_info: Dict, cfg):
         self.cfg = cfg
         self.store_name = self.__class__.__name__

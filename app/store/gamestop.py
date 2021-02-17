@@ -1,10 +1,9 @@
 from lxml import html
-from util.log import success, info
+from app.util.log import success, info
 import requests
 
 
 class GameStop:
-
     def __init__(self, product_info, cfg):
         self.cfg = cfg
         self.store_name = self.__class__.__name__

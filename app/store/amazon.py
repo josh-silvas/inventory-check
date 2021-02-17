@@ -1,10 +1,9 @@
 from lxml import html
-from util import success, info
+from app.util import success, info
 import requests
 
 
 class Amazon:
-
     def __init__(self, product_info, cfg):
         self.cfg = cfg
         self.store_name = self.__class__.__name__
@@ -24,22 +23,30 @@ class Amazon:
                 "Accept": "application/json",
             },
         )
-        doc = html.fromstring(page.content)
-        # checking availability
-        xpath_availability = '//div[@id ="availability"]//text()'
-        raw_availability = doc.xpath(xpath_availability)
-        ans = "".join(raw_availability).strip().rstrip() if raw_availability else None
-        if str(ans).lower() in "In Stock.".lower():
+        ans = self.fetch(page.content)
+        if ans in "In Stock.".lower():
             success(f"[{self.store_name}] {self.product_name} Available!")
             return True
 
-        if str(ans).lower() in "Only 2 left in stock.".lower():
+        if ans in "Only 2 left in stock.".lower():
             success(f"[{self.store_name}] {self.product_name} Available!")
             return True
 
-        if str(ans).lower() in "Only 1 left in stock.".lower():
+        if ans in "Only 1 left in stock.".lower():
             success(f"[{self.store_name}] {self.product_name} Available!")
             return True
 
         info(f"[{self.store_name}] {self.product_name} not available")
         return False
+
+    @staticmethod
+    def fetch(content) -> [str, None]:
+        doc = html.fromstring(content)
+        # checking availability
+        xpath_availability = '//div[@id ="availability"]//text()'
+        raw_availability = doc.xpath(xpath_availability)
+        return (
+            str("".join(raw_availability).strip().rstrip()).lower()
+            if raw_availability
+            else None
+        )

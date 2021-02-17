@@ -1,11 +1,10 @@
 import requests
 from typing import List, Dict
 from time import sleep
-from util.log import success, info, fail
+from app.util.log import success, info, fail
 
 
 class BestBuy:
-
     def __init__(self, product_info: Dict, cfg):
         self.cfg = cfg
         self.store_name = self.__class__.__name__

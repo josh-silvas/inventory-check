@@ -2,11 +2,10 @@ import requests
 
 from lxml import html
 from typing import Dict
-from util.log import success, info
+from app.util.log import success, info
 
 
 class WalMart:
-
     def __init__(self, product_info: Dict, cfg):
         self.cfg = cfg
         self.store_name = self.__class__.__name__
@@ -26,14 +25,20 @@ class WalMart:
                 "(KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36",
             },
         )
-        doc = html.fromstring(r.content)
-        raw_availability = doc.xpath(
-            '//*[contains(@class, "prod-ProductCTA--primary")]//text()'
-        )
-        result = "".join(raw_availability).strip() if raw_availability else None
-        if str(result) in str("Add to cart"):
+        ans = self.fetch(r.content)
+        if ans in "add to cart":
             success(f"[{self.store_name}] {self.product_name} Available!")
             return True
 
         info(f"[{self.store_name}] {self.product_name} not available")
         return False
+
+    @staticmethod
+    def fetch(content):
+        doc = html.fromstring(content)
+        raw_availability = doc.xpath(
+            '//*[contains(@class, "prod-ProductCTA--primary")]//text()'
+        )
+        return (
+            str("".join(raw_availability).strip()).lower() if raw_availability else None
+        )

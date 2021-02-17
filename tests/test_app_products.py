@@ -4,7 +4,6 @@ from app.products import INFO
 
 
 class TestProducts(unittest.TestCase):
-
     def test_product_keys(self):
         for elem in INFO:
             for k, v in elem.items():

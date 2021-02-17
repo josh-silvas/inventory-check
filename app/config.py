@@ -3,11 +3,12 @@ from configparser import ConfigParser
 
 
 class Config:
-
     def __new__(cls, filename: str = "config.ini"):
         if not path.isfile(filename):
-            raise FileExistsError(f"Are you sure you copied your own config.ini file?\n"
-                                  f"Try `cp app/config-example.ini app/config.ini`")
+            raise FileExistsError(
+                f"Are you sure you copied your own config.ini file?\n"
+                f"Try `cp app/config-example.ini app/config.ini`"
+            )
 
         cls._config = ConfigParser()
         cls._config.read(filename)
@@ -45,4 +46,3 @@ class Config:
                 cls.target_zip_codes = cls._config["target"].get("zip_codes").split(",")
 
         return super(Config, cls).__new__(cls)
-

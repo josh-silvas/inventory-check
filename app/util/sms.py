@@ -1,7 +1,7 @@
 import time
 
 from twilio.rest import Client
-from util import info
+from app.util import info
 
 
 class Twilio:
@@ -20,7 +20,9 @@ class Twilio:
 
         if self._should_notify(message):
             self.client.messages.create(
-                to=f"+{self.cfg.sms_to_number}", from_=f"+{self.cfg.sms_from_number}", body=message
+                to=f"+{self.cfg.sms_to_number}",
+                from_=f"+{self.cfg.sms_from_number}",
+                body=message,
             )
 
     def _should_notify(self, message: str):

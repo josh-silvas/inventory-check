@@ -2,11 +2,10 @@ import time
 import requests
 from lxml import html
 from typing import Dict
-from util.log import success, info
+from app.util.log import success, info
 
 
 class NewEgg:
-
     def __init__(self, product_info: Dict, cfg):
         self.cfg = cfg
         self.store_name = self.__class__.__name__
