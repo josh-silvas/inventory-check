@@ -1,6 +1,6 @@
 pyopenssl>=16.1.0
 python-dateutil==2.6.1
-requests==2.18.4
+requests>=2.20.0
 target-api-client
 twilio==6.52.0
 lxml

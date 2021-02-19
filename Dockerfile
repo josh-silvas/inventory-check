@@ -6,7 +6,8 @@ ENV LC_ALL=C.UTF-8
 # Set us a decent shell prompt
 ENV PS1='[\u@\h \W]\$ '
 
-ENV PATH "${PATH}:/home:/home/app"
+ENV PATH="${PATH}:/home:/home/app"
+ENV PYTHONPATH="${PYTHONPATH}:/home"
 
 # Change the working directory to the copied script location
 WORKDIR /home/app

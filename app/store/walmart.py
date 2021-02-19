@@ -25,7 +25,9 @@ class WalMart:
                 "(KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36",
             },
         )
-        ans = self.fetch(r.content)
+        ans = self.check_inventory(r.content)
+        if not ans:
+            return False
         if ans in "add to cart":
             success(f"[{self.store_name}] {self.product_name} Available!")
             return True
@@ -34,7 +36,7 @@ class WalMart:
         return False
 
     @staticmethod
-    def fetch(content):
+    def check_inventory(content):
         doc = html.fromstring(content)
         raw_availability = doc.xpath(
             '//*[contains(@class, "prod-ProductCTA--primary")]//text()'

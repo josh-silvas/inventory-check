@@ -47,7 +47,6 @@ class BestBuy:
             )
             fail(f"ConnectionError: Received {r.status_code}: {content}")
             return []
-        print(r.json())
         return self.check_within_zip_inventory(r.json())
 
     @staticmethod
@@ -75,7 +74,6 @@ class BestBuy:
             )
             fail(f"ConnectionError: Received {r.status_code}: {content}")
             return []
-        print(r.json())
         return self.check_online_inventory(r.json())
 
     @staticmethod

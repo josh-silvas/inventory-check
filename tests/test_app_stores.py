@@ -37,7 +37,7 @@ class TestStores(unittest.TestCase):
 
     def test_walmart_check_availability(self):
         with open("tests/mock/02-mock.html", "r") as _file:
-            ans = self.walmart.fetch(_file.read())
+            ans = self.walmart.check_inventory(_file.read())
             self.assertIsNotNone(ans)
             self.assertEqual(ans, "add to cart")
 
