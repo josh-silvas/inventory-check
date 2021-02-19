@@ -24,6 +24,8 @@ class Amazon:
             },
         )
         ans = self.fetch(page.content)
+        if not ans:
+            return False
         if ans in "In Stock.".lower():
             success(f"[{self.store_name}] {self.product_name} Available!")
             return True
