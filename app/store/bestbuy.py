@@ -19,10 +19,10 @@ class BestBuy:
 
         sleep(1)
         is_available = False
-        if self._print(self._available_within_zip(int(self.product_id))):
+        if self._print(self.available_within_zip(int(self.product_id))):
             is_available = True
         sleep(1)
-        if self._print(self._available_online(int(self.product_id))):
+        if self._print(self.available_online(int(self.product_id))):
             is_available = True
         return is_available
 
@@ -35,26 +35,31 @@ class BestBuy:
             success(f"[{self.store_name}] {self.product_name} Available {elem}!")
             return True
 
-    def _available_within_zip(self, sku: int, zip_code: int = 78261) -> List[str]:
+    def available_within_zip(self, sku: int, zip_code: int = 78261) -> List[str]:
         r = requests.get(
             url=f"{self.product_link}/products/{sku}/stores.json",
             params={"apiKey": self.cfg.best_buy_api_key, "postalCode": zip_code},
         )
-        ret_val = []
+
         if r.status_code > 209:
             content = (
                 r.content.replace(b"\n", b"").replace(b"\r", b"").replace(b"  ", b"")
             )
             fail(f"ConnectionError: Received {r.status_code}: {content}")
+            return []
+        print(r.json())
+        return self.check_within_zip_inventory(r.json())
+
+    @staticmethod
+    def check_within_zip_inventory(data):
+        ret_val = []
+        if not data.get("stores"):
             return ret_val
-        resp = r.json()
-        if not resp.get("stores"):
-            return ret_val
-        for elem in resp.get("stores"):
+        for elem in data.get("stores"):
             ret_val.append(elem["name"])
         return ret_val
 
-    def _available_online(self, sku: int) -> List[str]:
+    def available_online(self, sku: int) -> List[str]:
         r = requests.get(
             url=f"{self.product_link}/products(sku={sku})",
             params={
@@ -64,17 +69,21 @@ class BestBuy:
                 "sort": "onlineAvailability.asc",
             },
         )
-        ret_val = []
         if r.status_code > 209:
             content = (
                 r.content.replace(b"\n", b"").replace(b"\r", b"").replace(b"  ", b"")
             )
             fail(f"ConnectionError: Received {r.status_code}: {content}")
+            return []
+        print(r.json())
+        return self.check_online_inventory(r.json())
+
+    @staticmethod
+    def check_online_inventory(data):
+        ret_val = []
+        if not data.get("products"):
             return ret_val
-        resp = r.json()
-        if not resp.get("products"):
-            return ret_val
-        for elem in resp.get("products"):
+        for elem in data.get("products"):
             if elem["onlineAvailability"]:
                 return ["Online"]
         return ret_val

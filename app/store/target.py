@@ -51,7 +51,10 @@ class Target:
             },
             params={"zip": zip_code, "state": "TX", "storeId": self.store_id},
         )
-        data = req.json()
+        return self.check_for_inventory(req.json())
+
+    @staticmethod
+    def check_for_inventory(data):
         status = str(
             data["product"]["available_to_promise_store"]["products"][0][
                 "availability_status"
@@ -72,7 +75,7 @@ class Target:
                 ]
             )
             if status == str("OUT_OF_STOCK"):
-                return 0, "out of stock in network and stores"
+                return 0, "out of stock online and in stores"
             elif status == "IN_STOCK":
                 return amount, "online"
             elif status == "PRE_ORDER_SELLABLE":

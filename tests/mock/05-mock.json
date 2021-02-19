@@ -1,0 +1,17 @@
+{
+    "ispuEligible": true,
+    "stores": [
+        {
+            "storeID": "814",
+            "name": "Bucktown",
+            "address": "2100 N Elston Ave",
+            "city": "Chicago",
+            "state": "IL",
+            "postalCode": "60614",
+            "storeType": "Big_Box_Store",
+            "minPickupHours": null,
+            "lowStock": true,
+            "distance": 2.8
+        }
+    ]
+}

@@ -1,0 +1,77 @@
+{
+    "product": {
+        "available_to_promise_store": {
+            "products": [
+                {
+                    "product_id": "81114595",
+                    "is_limited_quantity": false,
+                    "channel_id": "ESTORE",
+                    "available_to_promise_quantity": 0.0,
+                    "availability_status": "OUT_OF_STOCK",
+                    "street_date": "2020-11-12T06:00:00.000Z",
+                    "back_order_start_date": "1970-01-01T00:00:00.000Z",
+                    "back_order_end_date": "1970-01-01T00:00:00.000Z",
+                    "available_to_purchase_date_time": "1970-01-01T00:00:00.000Z",
+                    "multichannel_options": [
+                        "HOLD"
+                    ],
+                    "buy_unit_of_measure": "EACH",
+                    "locations": [
+                        {
+                            "location_id": "2803",
+                            "location_type": "STORE",
+                            "search_response_store_types": [
+                                "PRIMARY"
+                            ],
+                            "distance": "0.00",
+                            "store_name": "Alamo Heights",
+                            "store_address": "1223 Austin Hwy San Antonio TX 78209",
+                            "formatted_store_address": "1223 Austin Hwy, San Antonio, TX 78209",
+                            "store_main_phone": "210-202-3578",
+                            "location_available_to_promise_quantity": 0.0,
+                            "inventory_type": "STORES",
+                            "availability_status": "OUT_OF_STOCK",
+                            "kill_switch_expiration_time": "2021-01-28T01:45:00.000Z",
+                            "suppressed_expiration_time": "1970-01-01T00:00:00.000Z",
+                            "multichannel_options": [],
+                            "is_grocery_capacity_expired": false
+                        }
+                    ],
+                    "is_retail_ticketed": false,
+                    "is_infinite_inventory": false,
+                    "is_add_to_cart_suppressed": false,
+                    "loyalty_availability_status": "OUT_OF_STOCK",
+                    "loyalty_purchase_start_date_time": "1970-01-01T00:00:00.000Z",
+                    "is_loyalty_purchase_enabled": false,
+                    "package_dimensions_weight": 14.62
+                }
+            ]
+        },
+        "available_to_promise_network": {
+            "product_id": "81114595",
+            "id_type": "TCIN",
+            "available_to_promise_quantity": 0.0,
+            "street_date": "2020-11-12T06:00:00.000Z",
+            "availability": "UNAVAILABLE",
+            "online_available_to_promise_quantity": 0.0,
+            "stores_available_to_promise_quantity": 0.0,
+            "availability_status": "OUT_OF_STOCK",
+            "multichannel_options": [
+                "HOLD"
+            ],
+            "is_infinite_inventory": false,
+            "loyalty_availability_status": "OUT_OF_STOCK",
+            "loyalty_purchase_start_date_time": "1970-01-01T00:00:00.000Z",
+            "is_loyalty_purchase_enabled": false,
+            "is_out_of_stock_in_all_store_locations": true,
+            "is_out_of_stock_in_all_online_locations": true
+        },
+        "in_store_location": {
+            "block": "F",
+            "aisle": 14,
+            "floor": "01",
+            "section": 1,
+            "block_aisle": "F-14"
+        }
+    }
+}

@@ -1,0 +1,19 @@
+{
+    "from": 1,
+    "to": 1,
+    "currentPage": 1,
+    "total": 1,
+    "totalPages": 1,
+    "queryTime": "0.046",
+    "totalTime": "0.049",
+    "partial": false,
+    "canonicalUrl": "/v1/products(sku=6426149)?show=onlineAvailability,sku,name,addToCartUrl&sort=onlineAvailability&format=json&apiKey=5QJ0NAnrGTXTOviHiqj6QPlo",
+    "products": [
+        {
+            "onlineAvailability": true,
+            "sku": 6426149,
+            "name": "Sony - PlayStation 5 Console",
+            "addToCartUrl": "https://api.bestbuy.com/click/-/6426149/cart"
+        }
+    ]
+}

@@ -25,7 +25,10 @@ class NewEgg:
                 "(KHTML, like Gecko) Chrome/42.0.2311.90 Safari/537.36",
             },
         )
-        doc = html.fromstring(page.content)
+        return self.check_for_inventory(page.content)
+
+    def check_for_inventory(self, content):
+        doc = html.fromstring(content)
         try:
             raw_availability = doc.xpath(
                 '//div[@id ="ProductBuy"]//span[contains(@class, "btn-message")]//text()'
