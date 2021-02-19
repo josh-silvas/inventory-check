@@ -13,12 +13,13 @@ ACTIVE_STORES = [BestBuy, Amazon, Target, WalMart, NewEgg]
 
 
 def main():
-    while True:
-        config = Config()
+    config = Config()
 
-        # Initialize a Twilio client. If you choose to not use one, then do not populate
-        # twilio information (SMS) in the config.py file.
-        message = Twilio(config)
+    # Initialize a Twilio client. If you choose to not use one, then do not populate
+    # twilio information (SMS) in the config.py file.
+    message = Twilio(config)
+
+    while True:
 
         # Range through the list of active products listed in the products dictionary.
         for product_info in INFO:
@@ -45,6 +46,10 @@ def main():
 
         # Sit and wait for the poll interval duration before processing this loop again.
         time.sleep(config.poll_interval)
+
+        # Refresh data from the config file. This allows updates to the config file while
+        # the container is running.
+        config = Config()
 
 
 if __name__ == "__main__":
